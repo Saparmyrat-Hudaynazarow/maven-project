@@ -1,0 +1,18 @@
+services:
+  resource-db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: resource-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  song-db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: song-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
