@@ -1,0 +1,40 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: song-service
+          uri: lb://song-service
+          predicates:
+            - Path=/songs/**
+
+        - id: resource-service
+          uri: lb://resource-service
+          predicates:
+            - Path=/resources/**
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:http://eureka-server:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

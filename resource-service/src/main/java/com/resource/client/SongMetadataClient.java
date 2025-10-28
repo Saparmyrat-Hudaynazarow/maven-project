@@ -3,6 +3,7 @@ package com.resource.client;
 import com.resource.dto.SongMetadataDto;
 import com.resource.exception.InvalidMp3Exception;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -24,10 +25,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class SongMetadataClient {
-    private final RestTemplate restTemplate = new RestTemplate();
+
+    private final RestTemplate restTemplate;
     private final String baseUrl;
 
-    public SongMetadataClient(@Value("${song-service.base-url}") String baseUrl) {
+
+    public SongMetadataClient(RestTemplate restTemplate, @Value("${song-service.base-url}") String baseUrl) {
+        this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
     }
 
